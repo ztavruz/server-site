@@ -13,6 +13,7 @@ class User
     private $id;
     private $login;
     private $password;
+    private $name;
 
     public $phone;
     public $email;
@@ -44,75 +45,57 @@ class User
     /**
      * @param mixed $id
      */
-    public function setId($id): void
+    public function setId($id)
     {
         $this->id = $id;
     }
 
     /**
-     * @return string
+     * @return mixed
      */
-    public function getLogin(): string
+    public function getLogin()
     {
         return $this->login;
     }
 
     /**
-     * @param string $login
+     * @param mixed $login
      */
-    public function setLogin(string $login): void
+    public function setLogin($login)
     {
         $this->login = $login;
     }
 
     /**
-     * @return string
+     * @return mixed
      */
-    public function getPassword(): string
+    public function getPassword()
     {
         return $this->password;
     }
 
     /**
-     * @param string $password
+     * @param mixed $password
      */
-    public function setPassword(string $password): void
+    public function setPassword($password)
     {
         $this->password = $password;
     }
 
-
-
     /**
      * @return mixed
      */
-    public function getJwt()
+    public function getName()
     {
-        return $this->jwt;
+        return $this->name;
     }
 
     /**
-     * @param mixed $jwt
+     * @param mixed $name
      */
-    public function setJwt($jwt): void
+    public function setName($name)
     {
-        $this->jwt = $jwt;
-    }
-
-    /**
-     * @return string
-     */
-    public function getStatus(): string
-    {
-        return $this->status;
-    }
-
-    /**
-     * @param string $status
-     */
-    public function setStatus(string $status): void
-    {
-        $this->status = $status;
+        $this->name = $name;
     }
 
     /**
@@ -126,7 +109,7 @@ class User
     /**
      * @param mixed $phone
      */
-    public function setPhone($phone): void
+    public function setPhone($phone)
     {
         $this->phone = $phone;
     }
@@ -142,7 +125,7 @@ class User
     /**
      * @param mixed $email
      */
-    public function setEmail($email): void
+    public function setEmail($email)
     {
         $this->email = $email;
     }
@@ -158,8 +141,42 @@ class User
     /**
      * @param mixed $bankCard
      */
-    public function setBankCard($bankCard): void
+    public function setBankCard($bankCard)
     {
         $this->bankCard = $bankCard;
     }
+
+    /**
+     * @return string
+     */
+    public function getStatus(): string
+    {
+        return $this->status;
+    }
+
+    /**
+     * @param string $status
+     */
+    public function setStatus(string $status)
+    {
+        $this->status = $status;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getJwt()
+    {
+        return $this->jwt;
+    }
+
+    /**
+     * @param mixed $jwt
+     */
+    public function setJwt($jwt)
+    {
+        $this->jwt = $jwt;
+    }
+
+
 }

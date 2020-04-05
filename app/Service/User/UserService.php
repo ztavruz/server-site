@@ -26,13 +26,12 @@ class UserService
     public function signup(SignupDto $dto): User
     {
         $user = new User();
-        $user->setLogin($dto->login);
-        $user->setPassword($dto->password);
         $user->setEmail($dto->email);
-        $user->setPhone($dto->phone);
-        $user->setBankCard($dto->bankCard);
+        $user->setPassword($dto->password);
+        $user->setName($dto->name);
 
         $user = $this->repository->create($user);
+
 
         return $user;
     }
@@ -51,7 +50,6 @@ class UserService
 
         if (!$user) {
             throw new \DomainException("Пользователь с таким логином не найден!(User not found) ");
-
         }
     }
 

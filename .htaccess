@@ -1,2 +1,5 @@
-RewriteEngine on
-RewriteRule .* public/index.php
+RewriteEngine On
+DirectoryIndex /public/index.php
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ /public/index.php

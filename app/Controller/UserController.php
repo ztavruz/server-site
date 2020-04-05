@@ -17,7 +17,7 @@ class UserController
     public function __construct(UserService $userService)
     {
         $this->userService = $userService;
-        $this->jsonData = json_decode(file_get_contents("php://input"), true);
+//        $this->jsonData = json_decode(file_get_contents("php://input"), true);
         $this->jsonPost = json_decode($_POST["user"], true);
     }
 
@@ -26,25 +26,21 @@ class UserController
         $dto = new SignupDto();
         $data = $this->jsonPost;
 
-        $dto->email = $data['login'];
-        $dto->bankCard = $data['bankCard'];
-        $dto->phone = $data['phone'];
+        $dto->email = $data['email'];
         $dto->password = $data['password'];
-        $dto->login = $data['login'];
+        $dto->name = $data['name'];
 
         $user = $this->userService->signup($dto);
 
+        $response = [
+          "id" => $user->getId(),
+          "name" => $user->getName(),
+          "email" => $user->getEmail(),
+          "status" => $user->getStatus(),
+          "jwt" => $user->getJwt(),
+        ];
 
-
-        $response = json_encode([
-            'id' => $user->getId(),
-            'login' => $user->getLogin(),
-            'status' => $user->getStatus(),
-            'jwt' => $user->getJwt()
-        ]);
-
-//        return $response;
-        var_dump($response);
+        echo json_encode($response);
     }
 
     public function login()
@@ -62,7 +58,6 @@ class UserController
             "jwt" => $user->getJwt()
         ]);
 
-//        return $response;
-        var_dump($response);
+
     }
 }

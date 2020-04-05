@@ -24,32 +24,28 @@ class UserRepository
 
     public function create(User $user)
     {
-        $data = $this->findOneBy("login", $user->getLogin());
-        $password = $user->getPassword();
-
+        $data = $this->findOneBy("email", $user->getEmail());
 
         if($data == null){
             $table = R::dispense($this->tableName);
-            $table->login = $user->getLogin();
-            $table->password = password_hash($password, PASSWORD_DEFAULT);
+            $table->name = $user->getName();
+            $table->password = password_hash($user->getPassword(), PASSWORD_DEFAULT);
             $table->email = $user->getEmail();
-            $table->phone = $user->getPhone();
-            $table->bank_card = $user->getBankCard();
             $table->status = $user->getStatus();        //задается по умолчанию
             $table->jwt   =  null;
             R::store($table);
 
-            $bean = $this->findOneBy("login", $user->getLogin());
+            $bean = $this->findOneBy("email", $user->getEmail());
             $payload = [
                 "id" => $bean["id"],
-                "login" => $bean["login"],
+                "email" => $bean["email"],
                 "status" => $bean["status"]
             ];
 
             $bean->jwt = $this->jwt->encode($payload, 36000);
             R::store($bean);
 
-            $user = $this->findOneBy("login", $user->getLogin());
+            $user = $this->findOneBy("email", $user->getEmail());
             $user = $this->convertToObject($user);
             return $user;
 
@@ -114,11 +110,12 @@ class UserRepository
     {
         $user = new User();
 
-        $user->setId($data["id"]);
-        $user->setLogin($data["login"]);
-        $user->setPassword($data["password"]);
-        $user->setStatus($data["status"]);
-        $user->setJwt($data["jwt"]);
+
+
+        foreach ($data as $key => $value){
+            $setter = "set". ucfirst($key);
+            $user->$setter($value);
+        }
 
         return $user;
     }
